@@ -67,8 +67,7 @@ You need to have preconfigured:
 - A data stream in Google Analtyics
 - A Google Tag Manager Workspace
 
-We also recommend using a proper consent management system.
-
+**⚠️ Legal Disclaimer:** This library defaults user consent to `denied`. Setting user consent to `granted` overrides this behavior to grant consent by default (i.e. without explicit end user agreement). Customers should consult with their own legal counsel to understand their privacy obligations and the appropriate use and configuration of this library. We also recommend using a consent management system.
 
 ## Installation
 
