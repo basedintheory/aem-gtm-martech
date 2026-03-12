@@ -3,39 +3,39 @@
   "description": "Integrate Google Analytics 4 and Google Tag Manager with your AEM Edge Delivery Services project using a phase-based loading approach optimized for Core Web Vitals.",
   "tasks": [
     {
-      "title": "Create GTM MarTech helper script",
-      "description": "Create scripts/gtm-martech.js that imports GtmMartech from ../plugins/gtm-martech/src/index.js, instantiates it with a config object containing placeholder values (empty tags array, empty containers.lazy/containers.delayed arrays, consent: true, analytics: true), includes the DA Preview disable check (const disabled = window.location.search.includes('martech=off')), and exports the instance as default. Include TODO comments where the user must fill in their GA4/GTM IDs and callbacks.",
-      "priority": "high",
+      "title": "Add preload hints to head.html",
+      "description": "Add three lines at the end of head.html: (1) <script nonce=\"aem\" src=\"/scripts/gtm-martech.js\" type=\"module\"></script>, (2) <link rel=\"preload\" as=\"script\" crossorigin=\"anonymous\" href=\"/plugins/gtm-martech/src/index.js\"/>, (3) <link rel=\"preconnect\" href=\"https://www.googletagmanager.com\"/>.",
+      "priority": "critical",
       "assignee": "agent"
     },
     {
-      "title": "Add preload hints to head.html",
-      "description": "Add three lines at the end of head.html: (1) <script nonce=\"aem\" src=\"/scripts/gtm-martech.js\" type=\"module\"></script>, (2) <link rel=\"preload\" as=\"script\" crossorigin=\"anonymous\" href=\"/plugins/gtm-martech/src/index.js\"/>, (3) <link rel=\"preconnect\" href=\"https://www.googletagmanager.com\"/>.",
-      "priority": "high",
+      "title": "Create GTM MarTech helper script",
+      "description": "Create scripts/gtm-martech.js that imports GtmMartech from ../plugins/gtm-martech/src/index.js, instantiates it with a config object containing placeholder values (empty tags array, empty containers.lazy/containers.delayed arrays, consent: true, analytics: true), includes the DA Preview disable check (const disabled = window.location.search.includes('martech=off')), and exports the instance as default. Include TODO comments where the user must fill in their GA4/GTM IDs and callbacks.",
+      "priority": "critical",
       "assignee": "agent"
     },
     {
       "title": "Import GTM MarTech in scripts.js",
       "description": "Add import gtmMartech from './gtm-martech.js'; at the top of scripts/scripts.js with the other import statements.",
-      "priority": "high",
+      "priority": "critical",
       "assignee": "agent"
     },
     {
       "title": "Wire eager phase into loadEager",
       "description": "In the loadEager function in scripts/scripts.js, add gtmMartech.eager() to the existing Promise.all() call alongside loadSection(). This initializes GA4 scripts during the eager rendering phase.",
-      "priority": "high",
+      "priority": "critical",
       "assignee": "agent"
     },
     {
       "title": "Wire lazy phase into loadLazy",
       "description": "In the loadLazy function in scripts/scripts.js, add await gtmMartech.lazy(); AFTER loadSections(main) completes. CRITICAL: This must NOT be inside a Promise.all() — it must be awaited independently to ensure correct section/block decoration.",
-      "priority": "high",
+      "priority": "critical",
       "assignee": "agent"
     },
     {
       "title": "Wire delayed phase into loadDelayed",
       "description": "In the loadDelayed function in scripts/scripts.js, add window.setTimeout(gtmMartech.delayed, 1000); BEFORE the existing delayed.js import. This is only needed if the user configures delayed GTM containers.",
-      "priority": "medium",
+      "priority": "high",
       "assignee": "agent"
     },
     {
@@ -71,7 +71,7 @@
     {
       "title": "Review and merge plugin branch",
       "description": "Review all changes on the plugin/gtm-martech branch. Verify: (1) head.html has the three new lines, (2) scripts/gtm-martech.js exists with correct config, (3) scripts/scripts.js has the import and all three phase calls wired correctly, (4) lazy() is NOT in a Promise.all. Create a pull request and merge to main.",
-      "priority": "high",
+      "priority": "low",
       "assignee": "user"
     }
   ]
